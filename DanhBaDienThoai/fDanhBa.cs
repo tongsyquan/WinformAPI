@@ -61,9 +61,18 @@ namespace DanhBaDienThoai
 				var request = new RestRequest(Method.GET);
 				var response = client.Get(request);
 				string json = response.Content;
-				var result = JsonConvert.DeserializeObject<List<LienHe>>(json);
-				dgv_list.DataSource = null;
-				dgv_list.DataSource = new BindingList<LienHe>(result);
+
+				try
+				{
+					var result = JsonConvert.DeserializeObject<List<LienHe>>(json);
+					dgv_list.DataSource = new BindingList<LienHe>(result);
+				}
+				catch (Exception)
+				{
+					var result = new List<LienHe>();
+					result.Add(JsonConvert.DeserializeObject<LienHe>(json));
+					dgv_list.DataSource = new BindingList<LienHe>(result);
+				}
 				ClearBinding();
 				Binding();
 			}).Start();
