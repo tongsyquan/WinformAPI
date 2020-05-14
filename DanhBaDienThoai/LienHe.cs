@@ -8,7 +8,7 @@ namespace DanhBaDienThoai
 
 		public int ID { get; set; }
 		[DisplayName("Họ tên")]
-		public string Hoten { get; set; }
+		public string HoTen { get; set; }
 		[DisplayName("Biệt danh")]
 		public string BietDanh { get; set; }
 		[DisplayName("Ngày sinh")]
@@ -26,7 +26,7 @@ namespace DanhBaDienThoai
 
 		public LienHe(string hoten, string bietDanh, DateTime? ngaySinh, string soDienThoai, string email, string diaChi)
 		{
-			Hoten = hoten;
+			HoTen = hoten;
 			BietDanh = bietDanh;
 			NgaySinh = ngaySinh;
 			SoDienThoai = soDienThoai;
@@ -37,7 +37,7 @@ namespace DanhBaDienThoai
 		public LienHe(int iD, string hoten, string bietDanh, DateTime? ngaySinh, string soDienThoai, string email, string diaChi)
 		{
 			ID = iD;
-			Hoten = hoten;
+			HoTen = hoten;
 			BietDanh = bietDanh;
 			NgaySinh = ngaySinh;
 			SoDienThoai = soDienThoai;

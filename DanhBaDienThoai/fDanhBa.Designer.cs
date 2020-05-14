@@ -83,8 +83,8 @@
 			// splitContainer1.Panel2
 			// 
 			this.splitContainer1.Panel2.Controls.Add(this.groupBox2);
-			this.splitContainer1.Size = new System.Drawing.Size(1214, 568);
-			this.splitContainer1.SplitterDistance = 444;
+			this.splitContainer1.Size = new System.Drawing.Size(1203, 568);
+			this.splitContainer1.SplitterDistance = 435;
 			this.splitContainer1.TabIndex = 0;
 			// 
 			// groupBox1
@@ -112,7 +112,7 @@
 			this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.groupBox1.Location = new System.Drawing.Point(0, 0);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(444, 568);
+			this.groupBox1.Size = new System.Drawing.Size(435, 568);
 			this.groupBox1.TabIndex = 0;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Thông tin cá nhân";
@@ -122,7 +122,7 @@
 			this.btn_delete.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btn_delete.Location = new System.Drawing.Point(331, 462);
 			this.btn_delete.Name = "btn_delete";
-			this.btn_delete.Size = new System.Drawing.Size(76, 30);
+			this.btn_delete.Size = new System.Drawing.Size(80, 35);
 			this.btn_delete.TabIndex = 11;
 			this.btn_delete.Text = "Xoá";
 			this.btn_delete.UseVisualStyleBackColor = true;
@@ -133,7 +133,7 @@
 			this.btn_new.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btn_new.Location = new System.Drawing.Point(188, 462);
 			this.btn_new.Name = "btn_new";
-			this.btn_new.Size = new System.Drawing.Size(76, 30);
+			this.btn_new.Size = new System.Drawing.Size(80, 35);
 			this.btn_new.TabIndex = 10;
 			this.btn_new.Text = "Tạo mới";
 			this.btn_new.UseVisualStyleBackColor = true;
@@ -144,7 +144,7 @@
 			this.btn_save.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btn_save.Location = new System.Drawing.Point(42, 462);
 			this.btn_save.Name = "btn_save";
-			this.btn_save.Size = new System.Drawing.Size(76, 30);
+			this.btn_save.Size = new System.Drawing.Size(80, 35);
 			this.btn_save.TabIndex = 9;
 			this.btn_save.Text = "Lưu";
 			this.btn_save.UseVisualStyleBackColor = true;
@@ -318,7 +318,7 @@
 			this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.groupBox2.Location = new System.Drawing.Point(0, 0);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(766, 568);
+			this.groupBox2.Size = new System.Drawing.Size(764, 568);
 			this.groupBox2.TabIndex = 0;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Tìm kiếm";
@@ -345,7 +345,7 @@
 			this.dgv_list.Name = "dgv_list";
 			this.dgv_list.ReadOnly = true;
 			this.dgv_list.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.dgv_list.Size = new System.Drawing.Size(754, 399);
+			this.dgv_list.Size = new System.Drawing.Size(758, 399);
 			this.dgv_list.TabIndex = 23;
 			// 
 			// btn_searchBD
@@ -439,7 +439,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1214, 568);
+			this.ClientSize = new System.Drawing.Size(1203, 568);
 			this.Controls.Add(this.splitContainer1);
 			this.Name = "fDanhBa";
 			this.Text = "Danh bạ";

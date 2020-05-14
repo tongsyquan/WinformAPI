@@ -3,6 +3,7 @@ using RestSharp;
 using RestSharp.Authenticators;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Net;
 using System.Threading;
 using System.Windows.Forms;
@@ -14,16 +15,10 @@ namespace DanhBaDienThoai
 		private string username;
 		private string password;
 
-		public fDanhBa()
-		{
-
-			InitializeComponent();
-		}
 		public fDanhBa(string username, string password)
 		{
 			InitializeComponent();
 			CheckForIllegalCrossThreadCalls = false;
-			dt_birthday.Format = DateTimePickerFormat.Custom;
 			dt_birthday.CustomFormat = "dd/MM/yyyy";
 			this.username = username;
 			this.password = password;
@@ -40,6 +35,7 @@ namespace DanhBaDienThoai
 			tb_email.DataBindings.Add("Text", dgv_list.DataSource, "Email");
 			tb_address.DataBindings.Add("Text", dgv_list.DataSource, "DiaChi");
 		}
+
 		private void ClearBinding()
 		{
 			tb_ID.DataBindings.Clear();
@@ -51,27 +47,26 @@ namespace DanhBaDienThoai
 			tb_address.DataBindings.Clear();
 		}
 
-		public void GetAllDanhBa()
+		private void GetAllDanhBa()
 		{
-			Thread thread = new Thread(() =>
-			{
-				GetContent("http://danhbadienthoai.somee.com/api/danhba");
-				ClearBinding();
-				Binding();
-			});
-			thread.Start();
+			GetContent("http://danhbadienthoai.somee.com/api/danhba");
 		}
 
 		private void GetContent(string api)
 		{
-			var client = new RestClient(api);
-			client.Authenticator = new HttpBasicAuthenticator(username, password);
-			var request = new RestRequest(Method.GET);
-			var response = client.Get(request);
-			string json = response.Content;
-			var result = JsonConvert.DeserializeObject<List<LienHe>>(json);
-			dgv_list.DataSource = result;
-
+			new Thread(() =>
+			{
+				var client = new RestClient(api);
+				client.Authenticator = new HttpBasicAuthenticator(username, password);
+				var request = new RestRequest(Method.GET);
+				var response = client.Get(request);
+				string json = response.Content;
+				var result = JsonConvert.DeserializeObject<List<LienHe>>(json);
+				dgv_list.DataSource = null;
+				dgv_list.DataSource = new BindingList<LienHe>(result);
+				ClearBinding();
+				Binding();
+			}).Start();
 		}
 
 		private void DanhBa_FormClosing(object sender, FormClosingEventArgs e)
@@ -106,43 +101,44 @@ namespace DanhBaDienThoai
 					MessageBox.Show("Xoá thất bại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				}
 			}).Start();
-
 		}
 
 		private void btn_searchHoTen_Click(object sender, EventArgs e)
 		{
 			string hoten = tb_searchFullname.Text;
-			string api = string.Format("http://danhbadienthoai.somee.com/api/DanhBa/GetByName/{0}", hoten);
-			new Thread(() =>
+			if (hoten == null)
 			{
-				GetContent(api);
-				ClearBinding();
-				Binding();
-			}).Start();
+				MessageBox.Show("Không được để trống", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				return;
+			}
+
+			string api = string.Format("http://danhbadienthoai.somee.com/api/DanhBa/GetByName/{0}", hoten);
+			GetContent(api);
 		}
 
 		private void btn_searchBD_Click(object sender, EventArgs e)
 		{
 			string bietdanh = tb_searchNickname.Text;
-			string api = string.Format("http://danhbadienthoai.somee.com/api/DanhBa/GetByNickname/{0}", bietdanh);
-			new Thread(() =>
+			if (bietdanh == null)
 			{
-				GetContent(api);
-				ClearBinding();
-				Binding();
-			}).Start();
+				MessageBox.Show("Không được để trống", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				return;
+			}
+
+			string api = string.Format("http://danhbadienthoai.somee.com/api/DanhBa/GetByNickname/{0}", bietdanh);
+			GetContent(api);
 		}
 
 		private void btn_searchID_Click(object sender, EventArgs e)
 		{
 			string id = tb_searchID.Text;
-			string api = string.Format("http://danhbadienthoai.somee.com/api/DanhBa/{0}", id);
-			new Thread(() =>
+			if (id == null)
 			{
-				GetContent(api);
-				ClearBinding();
-				Binding();
-			}).Start();
+				MessageBox.Show("Không được để trống", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				return;
+			}
+			string api = string.Format("http://danhbadienthoai.somee.com/api/DanhBa/{0}", id);
+			GetContent(api);
 		}
 
 		private void btn_delete_Click(object sender, EventArgs e)
@@ -153,22 +149,25 @@ namespace DanhBaDienThoai
 
 		private void btn_new_Click(object sender, EventArgs e)
 		{
-			string Hoten = tb_fullname.Text;
-			string BietDanh = tb_nickname.Text;
-			DateTime? NgaySinh = dt_birthday.Value;
-			string SoDienThoai = tb_phone.Text;
-			string Email = tb_email.Text;
-			string DiaChi = tb_address.Text;
-			if (Hoten == null)
+			new Thread(() =>
 			{
-				MessageBox.Show("Không được để trống", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-				return;
-			}
-			LienHe thongTin = new LienHe(Hoten, BietDanh, NgaySinh, SoDienThoai, Email, DiaChi);
-			Create(thongTin);
+				string Hoten = tb_fullname.Text;
+				string BietDanh = tb_nickname.Text;
+				DateTime? NgaySinh = dt_birthday.Value;
+				string SoDienThoai = tb_phone.Text;
+				string Email = tb_email.Text;
+				string DiaChi = tb_address.Text;
+				if (Hoten == null)
+				{
+					MessageBox.Show("Không được để trống", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+					return;
+				}
+				LienHe thongTin = new LienHe(Hoten, BietDanh, NgaySinh, SoDienThoai, Email, DiaChi);
+				Create(thongTin);
+			}).Start();
 		}
 
-		public void Create(LienHe thongTin)
+		private void Create(LienHe thongTin)
 		{
 			new Thread(() =>
 			{
@@ -201,7 +200,7 @@ namespace DanhBaDienThoai
 			string DiaChi = tb_address.Text;
 			if (Hoten == null)
 			{
-				MessageBox.Show("Không được để trống", "Thông báo");
+				MessageBox.Show("Không được để trống", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				return;
 			}
 			LienHe thongTin = new LienHe(id, Hoten, BietDanh, NgaySinh, SoDienThoai, Email, DiaChi);
@@ -220,12 +219,12 @@ namespace DanhBaDienThoai
 				var response = client.Put(request);
 				if (response.StatusCode == HttpStatusCode.OK)
 				{
-					MessageBox.Show("Cập nhật thành công");
+					MessageBox.Show("Cập nhật thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 					GetAllDanhBa();
 				}
 				else
 				{
-					MessageBox.Show("Cập nhật thất bại");
+					MessageBox.Show("Cập nhật thất bại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				}
 			}).Start();
 		}

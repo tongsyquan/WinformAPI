@@ -2,7 +2,6 @@
 using RestSharp.Authenticators;
 using System;
 using System.Net;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace DanhBaDienThoai
