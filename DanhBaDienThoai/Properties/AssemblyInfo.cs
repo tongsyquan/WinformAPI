@@ -4,10 +4,10 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DanhBaDienThoai")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Danh bạ điện thoại")]
+[assembly: AssemblyDescription("Danh bạ")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Tống Sỹ Quân")]
 [assembly: AssemblyProduct("DanhBaDienThoai")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]

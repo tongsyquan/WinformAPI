@@ -11,8 +11,8 @@ namespace DanhBaDienThoai
 {
 	public partial class fDanhBa : Form
 	{
-		string username;
-		string password;
+		private string username;
+		private string password;
 
 		public fDanhBa()
 		{
@@ -69,7 +69,7 @@ namespace DanhBaDienThoai
 			var request = new RestRequest(Method.GET);
 			var response = client.Get(request);
 			string json = response.Content;
-			var result = JsonConvert.DeserializeObject<List<ThongTin>>(json);
+			var result = JsonConvert.DeserializeObject<List<LienHe>>(json);
 			dgv_list.DataSource = result;
 
 		}
@@ -98,12 +98,12 @@ namespace DanhBaDienThoai
 				var response = client.Delete(request);
 				if (response.StatusCode == HttpStatusCode.OK)
 				{
-					MessageBox.Show("Xoá thành công");
+					MessageBox.Show("Xoá thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 					GetAllDanhBa();
 				}
 				else
 				{
-					MessageBox.Show("Xoá thất bại");
+					MessageBox.Show("Xoá thất bại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				}
 			}).Start();
 
@@ -148,7 +148,7 @@ namespace DanhBaDienThoai
 		private void btn_delete_Click(object sender, EventArgs e)
 		{
 			string id = tb_ID.Text;
-			DeleteContent( id);
+			DeleteContent(id);
 		}
 
 		private void btn_new_Click(object sender, EventArgs e)
@@ -161,14 +161,14 @@ namespace DanhBaDienThoai
 			string DiaChi = tb_address.Text;
 			if (Hoten == null)
 			{
-				MessageBox.Show("Không được để trống", "Thông báo");
+				MessageBox.Show("Không được để trống", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				return;
 			}
-			ThongTin thongTin = new ThongTin(Hoten, BietDanh, NgaySinh, SoDienThoai, Email, DiaChi);
+			LienHe thongTin = new LienHe(Hoten, BietDanh, NgaySinh, SoDienThoai, Email, DiaChi);
 			Create(thongTin);
 		}
 
-		public void Create(ThongTin thongTin)
+		public void Create(LienHe thongTin)
 		{
 			new Thread(() =>
 			{
@@ -180,15 +180,14 @@ namespace DanhBaDienThoai
 				var response = client.Post(request);
 				if (response.StatusCode == HttpStatusCode.OK)
 				{
-					MessageBox.Show("Thêm thành công");
+					MessageBox.Show("Thêm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 					GetAllDanhBa();
 				}
 				else
 				{
-					MessageBox.Show("Thêm thất bại");
+					MessageBox.Show("Thêm thất bại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				}
 			}).Start();
-
 		}
 
 		private void btn_save_Click(object sender, EventArgs e)
@@ -205,12 +204,11 @@ namespace DanhBaDienThoai
 				MessageBox.Show("Không được để trống", "Thông báo");
 				return;
 			}
-			ThongTin thongTin = new ThongTin(id, Hoten, BietDanh, NgaySinh, SoDienThoai, Email, DiaChi);
+			LienHe thongTin = new LienHe(id, Hoten, BietDanh, NgaySinh, SoDienThoai, Email, DiaChi);
 			Update(thongTin);
-
 		}
 
-		private void Update(ThongTin thongTin)
+		private void Update(LienHe thongTin)
 		{
 			new Thread(() =>
 			{
@@ -239,7 +237,6 @@ namespace DanhBaDienThoai
 			{
 				index--;
 				dgv_list.CurrentCell = dgv_list.Rows[index].Cells[0];
-
 			}
 		}
 
@@ -250,7 +247,6 @@ namespace DanhBaDienThoai
 			{
 				index++;
 				dgv_list.CurrentCell = dgv_list.Rows[index].Cells[0];
-
 			}
 		}
 	}

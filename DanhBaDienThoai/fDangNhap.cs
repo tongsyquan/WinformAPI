@@ -19,17 +19,15 @@ namespace DanhBaDienThoai
 			string username = tb_username.Text;
 			string password = tb_password.Text;
 			string api = "http://danhbadienthoai.somee.com/api/taikhoan";
-			Thread thread = new Thread(() =>
-			  {
-				  Login(username, password, api);
-			  });
-			thread.Start();
-			fDanhBa form = new fDanhBa(username, password);
-			form.Show();
-			this.Hide();
+			if (Login(username, password, api))
+			{
+				fDanhBa form = new fDanhBa(username, password);
+				form.Show();
+				this.Hide();
+			}
 		}
 
-		private static void Login(string username, string password, string api)
+		private static bool Login(string username, string password, string api)
 		{
 			var client = new RestClient(api);
 			client.Authenticator = new HttpBasicAuthenticator(username, password);
@@ -38,7 +36,9 @@ namespace DanhBaDienThoai
 			if (response.StatusCode != HttpStatusCode.OK)
 			{
 				MessageBox.Show("Đăng nhập thất bại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return false;
 			}
+			return true;
 		}
 	}
 }
